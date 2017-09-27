@@ -1,16 +1,25 @@
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 // define the User model schema
-const UserSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    index: { unique: true }
-  },
-  password: String,
-  name: String
-});
+// const UserSchema = new mongoose.Schema({
+//   email: {
+//     type: String,
+//     index: { unique: true }
+//   },
+//   password: String,
+//   name: String
+// });
 
+module.exports = function(sequelize, DataTypes) {
+  const UserSchema = sequelize.define("UserSchema", {
+    email: DataTypes.STRING,
+    password: DataTypes.STRING,
+    name: DataTypes.STRING
+  });
+
+  return UserSchema;
+}; 
 
 /**
  * Compare the passed password with the value in the database. A model method.
@@ -48,4 +57,4 @@ UserSchema.pre('save', function saveHook(next) {
 });
 
 
-module.exports = mongoose.model('User', UserSchema);
+// module.exports = mongoose.model('User', UserSchema);
